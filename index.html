@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Automated Spectrophotometer | Arav Patil</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <section id="one">
+            <div class="container">
+                <header class="major">
+                    <h2>Automated Spectrophotometer</h2>
+                    <p>Developed during Winter Break 2024</p>
+                </header>
+
+                <p><strong>Aim & Motivation:</strong><br>
+                  In bacterial studies, preparation of the bacterial cultures is a basic task. To ensure this, there is a need to observe the culture at consistent intervals of time. This is commonly done through measurement of the optical density at 600 nm with OD600. Conventionally, this has involved sampling the culture in a cuvette and putting it into the measuring equipment before reading out the optical density. Culture growth is arrested when reaching a certain value of optical density. As would be expected, this technique is time-consuming and requires constant human monitoring over a long period. This problem was overcome using the creation of an automated spectrophotometer prototype.</p>
+                  The basic idea is to develop a prototype which would get directly attached to the 2l conical flask (standard flask in which bacterial broth is prepared), and measure optical density at constant time intervals, and then drop the bacterial-growth-stopping solution (that is not what it’s called) via a micro-centrifuge tube into the flask situated at the top of it, all while the flask is rotating inside an incubator shaker. By doing so, we are removing any human involvement and significantly lowering the price of the equipment needed for this purpose, as conventional instruments are highly priced (around 1 lakh rupees).
+                <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/od600.png" alt="A standard OD600 measurement device." />
+                                <figcaption>A standard OD600 measurement device</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/final.jpg" alt="The Prototype" />
+                                <figcaption>The final prototype</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <h3>The Process</h3>
+
+                <p><strong>1. MCT Opening Mechanism:</strong><br>
+                  The initial challenge was to design an opening mechanism for the MCT cap. The close seal of the cap kept liquids free from contamination, but it was a challenge to open it without wastage. Since MCTs are disposable, we needed to have a way through which users could remove the tube without much effort. We tried many different ways, including a pulley system within a 3D-printed cone and a sliding system, but neither worked. We ultimately decided to use a pull-lever actuated by a servo motor to stabilize the tube during use. I created all the components in Autodesk Inventor, with a bottom cap that fits into the top cap so the whole unit can be placed on a conical flask opening.</p>
+
+                <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/1_1.jpg" alt="The initial Design" />
+                                <figcaption>The initial Design</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <video controls>
+                                    <source src="videos/1_3.mp4" type="video/mp4">
+                                </video>
+                                <figcaption>The Model Animation</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/1_2.jpg" alt="The final opening mechanism" />
+                                <figcaption>The final opening mechanism</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <video controls>
+                                    <source src="videos/1_4.mp4" type="video/mp4">
+                                </video>
+                                <figcaption>The opening mechanism in action</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <p><strong>2. Circuit Design:</strong><br>
+                  After we built the MCT unit, we proceeded to complete the circuit that will be used to measure the optical density of the bacterial culture. For that, we used an Arduino controller, ambient light sensor, and laser module. The first priority was obtaining the right light sensor. TSL2591 and TEMT6000 fell off our list. The former provided us with regulated LUX readings, and the latter provided us with analogue voltage like a photoresistor. We knew that TSL2591 was heavily light-sensitive outdoor, and that could lead to false peaks in LUX reading and might get the MCT tube fired even if it doesn't need to be fired. TEMT6000 was steady in voltage outputs, so we substituted it instead. We created an ad hoc voltage vs. optical density calibration process, constructing a special frame to support the sensor and LED module against each other, as documented in the photographs.</p>
+
+                <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/2_1.jpg" alt="The sensor and laser" />
+                                <figcaption>The sensor and the laser</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/2_2.jpg" alt="The circuitry" />
+                                <figcaption>The circuitry</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <p><strong>3. Calibration:</strong><br>
+                  In order to convert the voltage readings taken by the sensor into equivalent optical density readings, a calibration curve was necessary. Initial work involved preparation of a salt solution with varying concentrations of Calcium Carbonate in place of real broth. The solution was placed in a conical flask, and the voltage reading was taken with the sensor and LED module. Next, the optical density of the same solution was recorded with the standard OD600 equipment. The above procedure was repeated for different concentrations, and a voltage vs. optical density plot was obtained which was taken as the calibration graph.</p>
+
+                <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/3_1.jpg" alt="The Calibration setup" />
+                                <figcaption>The calibration setup</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <p><strong>4. Major Challenge – Light Penetration:</strong><br>
+                  On calibration, we encountered one crucial issue: inefficacy of LED light at high concentrations. In the case of high turbidity, laser light finds it hard to reach the conical flask. This is not an issue with the regular OD600 device where a cuvette of much smaller path length is utilized. To address this, we attempted various methods, including a more powerful LED, testing with 1L flasks, and back-scattered light compared to a direct LED-sensor configuration. The back-scattering method eventually showed potential, with some success in calibration attempts.</p>
+
+                <hr />
+
+                <h3>Conclusion</h3>
+
+                <p>This project was in no sense completely ready, it was taken forward by other members after the winter break. Upon the end of my contributions, the prototype looked something like that shown in the photos below. Many issues were tackled in that one month, and the end product was satisfactory (for me). It was to be fabricated, a calibration curve was to be plotted, and the final assessments were to be made. </p>
+
+                <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/c_1.jpg" alt="Final prototype-1" />
+                                <figcaption>The final prototype - 1</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure class="image fit">
+                                <img src="images/c_2.jpg" alt="Final prototype-2" />
+                                <figcaption>The final prototype - 2</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-12">
+                            <figure class="image fit">
+                                <video controls style="width: 100%; height: 1000px; object-fit: cover; border-radius: 0.5rem;">
+                                    <source src="videos/c_3.mp4" type="video/mp4">
+                                </video>
+                                <figcaption>The setup inside an incubator</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <section id="footer">
+        <div class="container">
+            <ul class="copyright">
+                <li>&copy; Arav Patil</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+    </section>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
